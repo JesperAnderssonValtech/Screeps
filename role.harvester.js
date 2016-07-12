@@ -6,10 +6,12 @@ var roleHarvester = {
     /** @param {Creep} creep **/
     run: function(creep) {
         ///if close to death return source to pool
-        if(creep.ticksToLive <= 10){
+        if(creep.ticksToLive <= 5){
            if(creep.memory.workSource){
                 sourceFun.decrementWorkersOnCreeps(creep);
                 creep.memory.workSource = undefined;
+                creep.say("Good bye!")
+                creep.suicide();
             } 
         }
 

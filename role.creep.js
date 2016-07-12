@@ -10,7 +10,7 @@
 module.exports = {
 	locateAndCollectEnergy: function(creep){
 		var allWorkers = _.filter(Game.creeps);
-		if(allWorkers.length  >= creep.room.memory.MaxHarvesters + 7){
+		if(allWorkers.length  >= creep.room.memory.MaxHarvesters + 5){
 			var targets = creep.room.find(FIND_STRUCTURES, {
 	                    filter: (structure) => {
 	                        return (structure.structureType == STRUCTURE_CONTAINER || structure.structureType == STRUCTURE_SPAWN)

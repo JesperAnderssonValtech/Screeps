@@ -9,7 +9,7 @@ module.exports.loop = function () {
 
 statistics.run();
 
-for(var i in Memory.creeps) {
+for(let i in Memory.creeps) {
     if(!Game.creeps[i]) {
         delete Memory.creeps[i];
     }
@@ -17,7 +17,7 @@ for(var i in Memory.creeps) {
 
 Source.prototype.memory = undefined;
 
-for(var roomName in Game.rooms){//Loop through all rooms your creeps/structures are in
+for(let roomName in Game.rooms){//Loop through all rooms your creeps/structures are in
     var room = Game.rooms[roomName];
     if(!room.memory.MaxHarvesters){
         room.memory.MaxHarvesters = 0;
@@ -56,7 +56,7 @@ var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader'
 var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
 var allWorkers = _.filter(Game.creeps);
 
-for(var spawnName in Game.spawns){
+for(let spawnName in Game.spawns){
     var spawn = Game.spawns[spawnName];
     var totalEnergyForRoom = 0;
     var extensions = spawn.room.find(FIND_STRUCTURES, {
@@ -68,26 +68,26 @@ for(var spawnName in Game.spawns){
         totalEnergyForRoom += extensions[i].energy;
     }
 
-    console.log("extensions: " + extensions.length + "energy in extensions: " + totalEnergyForRoom + " totalEnergy: " + parseInt(spawn.energy + totalEnergyForRoom))    
+    console.log("extensions: " + extensions.length + "energy in extensions: " + totalEnergyForRoom + " totalEnergy: " + parseInt(spawn.energy + totalEnergyForRoom) + "max harvesters: " + room.memory.MaxHarvesters)    
         if(harvesters.length < room.memory.MaxHarvesters && parseInt(spawn.energy + totalEnergyForRoom) >= spawnFun.costForCreep("harvester", spawn)){
             //Game.spawns.TutTut.createCreep([WORK, WORK, CARRY, MOVE], "harvester-"+ new Date(), {role: 'harvester', workSource: undefined});
             spawnFun.spawnHarvester(spawn)
             console.log("spawn harvester in: " + spawn);
             
         }
-        else if(upgraders.length < 3 && parseInt(spawn.energy + totalEnergyForRoom) >= spawnFun.costForCreep("upgrader", spawn)){
+        else if(upgraders.length < 3 && harvesters.length == room.memory.MaxHarvesters && parseInt(spawn.energy + totalEnergyForRoom) >= spawnFun.costForCreep("upgrader", spawn)){
             //spawn.createCreep([WORK, CARRY, CARRY, MOVE], "upgrader-"+ new Date(), {role: 'upgrader'});
             spawnFun.spawnUpgrader(spawn);
             console.log("spawn upgrader in: " + spawn);
         }
-        else if(builders.length < 2 && parseInt(spawn.energy + totalEnergyForRoom) >= spawnFun.costForCreep("builder", spawn)){
+        else if(builders.length < 2 && harvesters.length == room.memory.MaxHarvesters  && parseInt(spawn.energy + totalEnergyForRoom) >= spawnFun.costForCreep("builder", spawn)){
             //spawn.createCreep([WORK, CARRY, CARRY, MOVE], "builder-"+ new Date(), {role: 'builder'});
             spawnFun.spawnBuilder(spawn);
             console.log("spawn builder in: " + spawn);
         }
 }
 
-    for(var name in Game.creeps) {
+    for(let name in Game.creeps) {
         var creep = Game.creeps[name];
         if(creep.memory.role == 'harvester') {
             roleHarvester.run(creep);

@@ -63,15 +63,7 @@ module.exports = {
 		var arr = this.decideParts(type,spawn);
 		var cost = 0;
 		for(var i = 0; i<arr.length; i++){
-			if(arr[i] == WORK){
-				cost += 100;
-			}
-			else if(arr[i] == CARRY){
-				cost += 50;
-			}
-			else if(arr[i] == MOVE){
-				cost += 50;
-			}
+			cost += BODYPART_COST[arr[i]];
 		}
 		return cost;
 	}
