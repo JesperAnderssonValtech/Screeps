@@ -37,15 +37,7 @@ var sourceFunc = {
 	maxNumberOfWorkersForSource: function(source){
 
 		var freeBlocks = this.freeblocksAroundSource(source);
-		var sourcePos = source.pos
-		var spawns = source.room.find(FIND_STRUCTURES, {
-                    filter: (structure) => {
-                        return (structure.structureType == STRUCTURE_SPAWN)
-                    }
-            });
-		var spawnPos = spawns[0].pos;
-		var distance = Math.sqrt(Math.pow(sourcePos.x - spawnPos.x,2) + Math.pow(sourcePos.y - spawnPos.y,2))
-		var score = parseInt(freeBlocks-1) + parseInt(distance/4);
+		var score = parseInt(freeBlocks)
 		return score;
 	}
 }
